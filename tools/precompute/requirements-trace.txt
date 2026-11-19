@@ -1,0 +1,9 @@
+# GPU step only (neuron_trace.py): bf16 forward of Qwen3.5-0.8B in transformers.
+# Install on top of requirements.txt. No CUDA toolkit / nvcc needed (wheels bundle the runtime).
+# The Gated DeltaNet layers use transformers' reference PyTorch kernels; flash-linear-attention
+# and causal_conv1d are optional and were NOT installed for the recorded trace.
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch==2.11.0+cu128
+transformers==5.23.0
+tokenizers==0.23.3
+safetensors==0.8.0

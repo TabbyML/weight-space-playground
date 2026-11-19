@@ -1,0 +1,5 @@
+numpy==2.5.5
+huggingface_hub==2.4.0
+pytest==9.2.0
+# gguf-py from the same llama.cpp checkout used for recording (optional: GGUF survival stats)
+gguf @ git+https://github.com/ggml-org/llama.cpp.git@7d7f0287530bc8981690f361d8c1627dbae1c99a#subdirectory=gguf-py

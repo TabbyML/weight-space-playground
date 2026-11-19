@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Weight-Space Playground · an LLM edited another LLM's weights</title>
+<meta name="description" content="An LLM edited 0.016% of Qwen3.5-0.8B's weights  -  no training  -  and reduced repeated reasoning in the original experiment. See where the edit lands and run both models live in your browser with WebGPU." />
+<meta name="theme-color" content="#fff4e2" />
+<link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Weight-Space Playground" />
+<meta property="og:title" content="Weight-Space Playground  -  an LLM edited 0.016% of another LLM's weights" />
+<meta property="og:description" content="The base Qwen3.5-0.8B gets stuck in reasoning loops. An LLM subtracted one direction from 131,072 weights in layers 15 &amp; 19  -  and the edited model escapes. Runs in your browser." />
+<meta property="og:url" content="https://tabbyml.github.io/weight-space-playground/" />
+<meta property="og:image" content="https://tabbyml.github.io/weight-space-playground/og-cover.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Base model loops to the token cap while the edited model stops and answers." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Weight-Space Playground" />
+<meta name="twitter:description" content="An LLM edited 0.016% of another LLM's weights and reduced its reasoning loops. Watch it in your browser." />
+<meta name="twitter:image" content="https://tabbyml.github.io/weight-space-playground/og-cover.png" />
+<meta name="twitter:image:alt" content="Base model loops to the token cap while the edited model stops and answers." />
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link rel="stylesheet" crossorigin="anonymous" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;family=Nunito:ital,wght@0,500;0,700;0,800;1,500&amp;display=swap" />
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="brand" href="#top"><img src="./favicon.svg" alt="" width="28" height="28" /> Weight-Space Playground</a>
+  <span class="topnav">
+    <a href="#replay">Replay</a>
+    <a href="#story">Story</a>
+    <a href="#inside">Look closer</a>
+    <a href="#live">Run live</a>
+  </span>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-text">
+    <p class="eyebrow"><span>Weight-space programming</span></p>
+    <h1>Breaking reasoning loops by editing <em>model weights.</em></h1>
+    <p class="lede">
+      Qwen3.5-0.8B can get stuck rechecking the same reasoning, using up its token budget before reaching an answer.
+      In <a href="https://rikiyat.github.io/blog/weight-space-programming/">Sparks of Weight-Space Programming</a>,
+      an AI agent reduced this behavior by directly editing a small set of its weights - without fine-tuning.
+    </p>
+    <p>Explore what changed: watch the original and edited models answer the same questions,
+      inspect the weight changes, then look at neuron activity during those runs.</p>
+    <p class="hero-cta">
+      <a class="chip chip-go" href="#rp-player">Watch the replay ↓</a>
+      <a class="chip" href="#live">Run it live</a>
+    </p>
+  </div>
+
+  <figure class="hero-art" role="img" aria-label="Illustration: the base model is a snake chasing its own tail; after a tiny edit, the edited snake slithers out to a finish flag.">
+    <svg viewBox="0 0 480 380" aria-hidden="true">
+      <defs>
+        <pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.6" fill="#e9d6b7" />
+        </pattern>
+      </defs>
+      <rect x="6" y="6" width="468" height="368" rx="34" fill="#fffaf1" />
+      <rect x="6" y="6" width="468" height="368" rx="34" fill="url(#dots)" />
+
+      <!-- base: the snake that chases its own tail -->
+      <g transform="translate(132 214)">
+        <circle r="96" fill="#ffe3da" />
+        <g class="spin">
+          <path d="M 11 -66 A 67 67 0 1 1 -11 -66" fill="none" stroke="#2b2340" stroke-width="32" stroke-linecap="round" />
+          <path d="M 11 -66 A 67 67 0 1 1 -11 -66" fill="none" stroke="#ff6f59" stroke-width="25" stroke-linecap="round" />
+          <path d="M 11 -66 A 67 67 0 1 1 -11 -66" fill="none" stroke="#ffb3a3" stroke-width="7" stroke-linecap="round" stroke-dasharray="1 15" />
+          <g transform="translate(-20 -64) rotate(-8)">
+            <ellipse rx="24" ry="19" fill="#ff6f59" stroke="#2b2340" stroke-width="3.5" />
+            <circle cx="6" cy="-7" r="6.5" fill="#fff" stroke="#2b2340" stroke-width="2.5" />
+            <circle cx="-8" cy="-7" r="6.5" fill="#fff" stroke="#2b2340" stroke-width="2.5" />
+            <path d="M 3 -7 a 3 3 0 1 1 3 3" fill="none" stroke="#2b2340" stroke-width="2" stroke-linecap="round" />
+            <path d="M -11 -7 a 3 3 0 1 1 3 3" fill="none" stroke="#2b2340" stroke-width="2" stroke-linecap="round" />
+            <path d="M 4 8 q 6 -4 12 0" fill="none" stroke="#2b2340" stroke-width="2.5" stroke-linecap="round" />
+          </g>
+        </g>
+        <text class="art-loop" y="9" text-anchor="middle">↻</text>
+      </g>
+      <g class="bubble">
+        <path d="M 30 34 h 186 a 16 16 0 0 1 16 16 v 34 a 16 16 0 0 1 -16 16 h -100 l -22 20 l 2 -20 h -66 a 16 16 0 0 1 -16 -16 v -34 a 16 16 0 0 1 16 -16 z" fill="#fff" stroke="#2b2340" stroke-width="3.5" stroke-linejoin="round" />
+        <text x="123" y="63" text-anchor="middle" class="art-say">wait, let me verify…</text>
+        <text x="123" y="86" text-anchor="middle" class="art-say dim">wait, let me verify…</text>
+      </g>
+
+      <!-- the edit: one tiny subtraction -->
+      <g transform="translate(262 150)"><g class="art-spark">
+        <path d="M 0 -26 L 7 -7 L 26 0 L 7 7 L 0 26 L -7 7 L -26 0 L -7 -7 Z" fill="#8c6bff" stroke="#2b2340" stroke-width="3" stroke-linejoin="round" />
+      </g></g>
+      <g transform="translate(250 196) rotate(-6)">
+        <rect x="-34" y="-15" width="80" height="30" rx="15" fill="#ffd23f" stroke="#2b2340" stroke-width="3" />
+        <text x="6" y="6" text-anchor="middle" class="art-tag">−0.016%</text>
+      </g>
+
+      <!-- edited: the snake that escapes -->
+      <g class="speed" stroke="#2b2340" stroke-width="4" stroke-linecap="round" opacity=".5">
+        <path d="M 214 280 h 18" /><path d="M 204 296 h 24" /><path d="M 216 312 h 14" />
+      </g>
+      <g class="slither">
+        <path d="M 248 300 C 288 300, 298 268, 334 268 S 370 228, 402 218" fill="none" stroke="#2b2340" stroke-width="30" stroke-linecap="round" />
+        <path d="M 248 300 C 288 300, 298 268, 334 268 S 370 228, 402 218" fill="none" stroke="#2fc79a" stroke-width="23" stroke-linecap="round" />
+        <path class="scales" d="M 248 300 C 288 300, 298 268, 334 268 S 370 228, 402 218" fill="none" stroke="#a6f0d6" stroke-width="7" stroke-linecap="round" stroke-dasharray="1 15" />
+        <g transform="translate(408 212) rotate(-22)">
+          <ellipse rx="23" ry="18" fill="#2fc79a" stroke="#2b2340" stroke-width="3.5" />
+          <path d="M -9 -7 q 4 -6 8 0" fill="none" stroke="#2b2340" stroke-width="3" stroke-linecap="round" />
+          <path d="M 4 -7 q 4 -6 8 0" fill="none" stroke="#2b2340" stroke-width="3" stroke-linecap="round" />
+          <path d="M -4 5 q 6 6 12 0" fill="none" stroke="#2b2340" stroke-width="3" stroke-linecap="round" />
+          <circle cx="-12" cy="3" r="3.5" fill="#ff9e8a" />
+          <circle cx="15" cy="2" r="3.5" fill="#ff9e8a" />
+        </g>
+      </g>
+      <g class="flag" transform="translate(432 96)">
+        <path d="M 0 0 V 120" stroke="#2b2340" stroke-width="5" stroke-linecap="round" />
+        <path class="flag-cloth" d="M 2 2 L 38 14 L 2 28 Z" fill="#ffd23f" stroke="#2b2340" stroke-width="3.5" stroke-linejoin="round" />
+        <circle cy="0" r="5" fill="#2b2340" />
+      </g>
+      <text x="400" y="88" text-anchor="end" class="art-say">answer!</text>
+
+      <g transform="translate(132 352)"><rect x="-58" y="-16" width="116" height="30" rx="15" fill="#ff6f59" stroke="#2b2340" stroke-width="3" /><text y="5" text-anchor="middle" class="art-label">base: loops</text></g>
+      <g transform="translate(330 352)"><rect x="-70" y="-16" width="140" height="30" rx="15" fill="#2fc79a" stroke="#2b2340" stroke-width="3" /><text y="5" text-anchor="middle" class="art-label">edited: escapes</text></g>
+    </svg>
+  </figure>
+</header>
+
+
+<section class="section stage" id="replay" aria-label="Recorded replay of both models">
+  <div class="section-head">
+    <span class="kicker kicker-replay">Watch it</span>
+    <h2>Same question. Different paths to an answer.</h2>
+    <p>Recorded offline with llama.cpp: both models receive the same prompt and seed.
+      Drag the timeline, change the speed, or choose another example - including a control.</p>
+    <p class="rec-badge" title="Recorded offline with native llama.cpp on GPU; the live run below uses the same GGUF files in your browser."><span class="rec-dot"></span>recorded</p>
+  </div>
+
+  <div class="card rp-loading" id="rp-loading" role="status" aria-live="polite">
+    <svg class="rp-loading-snake" viewBox="-60 -60 120 120" aria-hidden="true">
+      <g class="spin">
+        <path d="M 7 -40 A 40 40 0 1 1 -7 -40" fill="none" stroke="#2b2340" stroke-width="20" stroke-linecap="round" />
+        <path d="M 7 -40 A 40 40 0 1 1 -7 -40" fill="none" stroke="#ff6f59" stroke-width="14" stroke-linecap="round" />
+        <circle cx="-12" cy="-40" r="12" fill="#ff6f59" stroke="#2b2340" stroke-width="3" />
+        <circle cx="-8" cy="-43" r="3" fill="#2b2340" />
+      </g>
+    </svg>
+    <div>
+      <h3 id="rp-loading-title">Unrolling the recording…</h3>
+      <p id="rp-loading-text">Fetching the recorded token streams (about 1 MB). Everything else on the page already works.</p>
+      <div class="bar rp-loading-bar"><i class="fill-edited" id="rp-loading-fill"></i></div>
+    </div>
+  </div>
+
+  <div class="rp-stage" id="rp-stage" hidden>
+    <div class="cases" id="rp-cases" role="radiogroup" aria-label="Pick a recorded case"></div>
+
+    <div class="card rp-player" id="rp-player">
+      <div class="rp-prompt">
+        <span class="rp-prompt-tag">Prompt</span>
+        <p class="rp-prompt-text" id="rp-prompt"></p>
+        <p class="rp-prompt-meta" id="rp-prompt-meta"></p>
+      </div>
+      <div class="rp-transport">
+        <button id="rp-play" class="primary rp-play" aria-label="Play">▶ Play</button>
+        <div class="speeds" id="rp-speeds" role="group" aria-label="Playback speed"></div>
+        <button id="rp-skip" class="ghost mini">skip to end ⇥</button>
+        <button id="rp-restart" class="ghost mini">↺ restart</button>
+        <span class="rp-clock" id="rp-clock"></span>
+        <button id="rp-share" class="ghost mini" title="Copy a link to this case and moment">copy link</button>
+      </div>
+      <div class="rp-scrub" id="rp-scrub" role="slider" tabindex="0" aria-label="Replay position in tokens" aria-valuemin="0">
+        <canvas class="timeline rp-timeline" id="rp-timeline"></canvas>
+        <canvas class="rp-neuron-lane" id="rp-neuron-lane" aria-hidden="true"></canvas>
+      </div>
+      <div class="legend">
+        <span><i class="sw-think"></i>thinking</span>
+        <span><i class="sw-base"></i>base answer</span>
+        <span><i class="sw-edited"></i>edited answer</span>
+        <span><i class="sw-loop"></i>verbatim loop</span>
+        <span><i class="sw-push"></i>neuron push <a class="see-inside" href="#neurons">see inside ↓</a></span>
+        <span class="legend-hint">drag or click to scrub · ← → step · space plays</span>
+      </div>
+    </div>
+
+    <div class="grid">
+      <article class="pane card rp-pane" id="rp-pane-base">
+        <div class="pane-head">
+          <span class="dot dot-base"></span>
+          <span class="name">Base</span>
+          <span class="src" title="unsloth/Qwen3.5-0.8B-GGUF · Q4_K_M with imatrix calibration">Q4_K_M · imatrix</span>
+          <span class="finish" id="rp-finish-base">waiting</span>
+        </div>
+        <div class="stream" id="rp-scroll-base">
+          <p class="rp-empty">Press play. Thinking text appears in grey, the final answer in dark ink.</p>
+          <div class="think" hidden></div>
+          <div class="answer"></div>
+        </div>
+        <div class="escape" id="rp-escape-base" hidden></div>
+        <div class="telemetry">
+          <div class="metrics" id="rp-meta-base"></div>
+          <div class="loopwrap" title="Share of the last 80 words that repeat an earlier 4-word phrase (same meter as the live run)">
+            <span class="looptag">repetition</span>
+            <canvas class="loop" id="rp-loop-base"></canvas>
+            <span class="looplabel" id="rp-looplabel-base">0%</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="pane card rp-pane" id="rp-pane-edited">
+        <div class="pane-head">
+          <span class="dot dot-edited"></span>
+          <span class="name">Edited</span>
+          <span class="src" title="NotCherry/Qwen3.5-0.8B-weight-space-programming-GGUF · plain Q4_K_M">Q4_K_M · plain</span>
+          <span class="finish" id="rp-finish-edited">waiting</span>
+        </div>
+        <div class="stream" id="rp-scroll-edited">
+          <p class="rp-empty">Press play. Thinking text appears in grey, the final answer in dark ink.</p>
+          <div class="think" hidden></div>
+          <div class="answer"></div>
+        </div>
+        <div class="escape" id="rp-escape-edited" hidden></div>
+        <div class="telemetry">
+          <div class="metrics" id="rp-meta-edited"></div>
+          <div class="loopwrap" title="Share of the last 80 words that repeat an earlier 4-word phrase (same meter as the live run)">
+            <span class="looptag">repetition</span>
+            <canvas class="loop" id="rp-loop-edited"></canvas>
+            <span class="looplabel" id="rp-looplabel-edited">0%</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <p class="verdict" id="rp-verdict" aria-live="polite" hidden></p>
+
+    <div class="counters" id="rp-counters">
+      <div class="ctr ctr-base" id="ctr-base">
+        <div class="ctr-mascot">
+          <svg viewBox="-60 -60 120 120" aria-hidden="true">
+            <circle r="56" fill="#ffe3da" />
+            <g class="spin">
+              <path d="M 7 -38 A 38 38 0 1 1 -7 -38" fill="none" stroke="#2b2340" stroke-width="20" stroke-linecap="round" />
+              <path d="M 7 -38 A 38 38 0 1 1 -7 -38" fill="none" stroke="#ff6f59" stroke-width="14" stroke-linecap="round" />
+              <g transform="translate(-12 -37)">
+                <ellipse rx="14" ry="11" fill="#ff6f59" stroke="#2b2340" stroke-width="3" />
+                <circle cx="-4" cy="-3" r="3.6" fill="#fff" stroke="#2b2340" stroke-width="1.6" />
+                <circle cx="5" cy="-3" r="3.6" fill="#fff" stroke="#2b2340" stroke-width="1.6" />
+                <path d="M -5 4 q 5 -3 10 0" fill="none" stroke="#2b2340" stroke-width="2" stroke-linecap="round" />
+              </g>
+            </g>
+          </svg>
+          <div class="ctr-bubble" id="ctr-bubble" hidden><span id="ctr-bubble-text"></span></div>
+        </div>
+        <div class="ctr-body">
+          <span class="ctr-label">base · tokens spent</span>
+          <span class="ctr-num c-base" id="ctr-base-num">0</span>
+          <span class="ctr-sub" id="ctr-base-sub"></span>
+          <span class="ctr-stickers">
+            <span class="loop-sticker" id="ctr-loop" hidden></span>
+            <span class="done-sticker" id="ctr-done-base" hidden></span>
+          </span>
+        </div>
+      </div>
+      <div class="ctr ctr-waste">
+        <span class="ctr-label">tokens wasted looping</span>
+        <span class="ctr-num" id="ctr-waste-num">0</span>
+        <span class="ctr-sub" id="ctr-waste-sub">written inside verbatim repeats</span>
+      </div>
+      <div class="ctr ctr-edited" id="ctr-edited">
+        <div class="ctr-track" aria-hidden="true">
+          <svg viewBox="0 0 240 70" preserveAspectRatio="xMidYMid meet">
+            <path d="M 14 52 H 214" stroke="#2b2340" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round" />
+            <g class="track-flag" transform="translate(222 10)">
+              <path d="M 0 0 V 46" stroke="#2b2340" stroke-width="4" stroke-linecap="round" />
+              <path class="flag-cloth" d="M 2 2 L 24 10 L 2 18 Z" fill="#ffd23f" stroke="#2b2340" stroke-width="3" stroke-linejoin="round" />
+            </g>
+            <g id="ctr-snake" class="track-snake">
+              <path d="M -46 52 C -36 40, -26 64, -16 52 S 0 42, 0 46" fill="none" stroke="#2b2340" stroke-width="13" stroke-linecap="round" />
+              <path d="M -46 52 C -36 40, -26 64, -16 52 S 0 42, 0 46" fill="none" stroke="#2fc79a" stroke-width="8" stroke-linecap="round" />
+              <g transform="translate(4 42)">
+                <ellipse rx="12" ry="9.5" fill="#2fc79a" stroke="#2b2340" stroke-width="3" />
+                <path d="M -6 -3 q 3 -4 6 0" fill="none" stroke="#2b2340" stroke-width="2.2" stroke-linecap="round" />
+                <path d="M 2 -3 q 3 -4 6 0" fill="none" stroke="#2b2340" stroke-width="2.2" stroke-linecap="round" />
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="ctr-body">
+          <span class="ctr-label">edited · tokens spent</span>
+          <span class="ctr-num c-edited" id="ctr-edited-num">0</span>
+          <span class="ctr-sub" id="ctr-edited-sub"></span>
+          <span class="ctr-stickers">
+            <span class="done-sticker" id="ctr-done-edited" hidden></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="honest" aria-label="How representative is this replay?">
+  <div class="card honest">
+    <div class="card-head">
+      <h3>How representative are these examples? <span class="badge recording" id="honest-badge">loading…</span></h3>
+      <p id="honest-lede">The replay cases come from a batch of MATH-500 problems recorded with the same settings.</p>
+    </div>
+    <div id="honest-body"></div>
+  </div>
+</section>
+
+<section class="beats" id="story" aria-label="The story in three beats">
+  <article class="beat beat-base">
+    <div class="beat-num">1</div>
+    <h2>The problem: repeated reasoning</h2>
+    <p>In the original experiment, Qwen3.5-0.8B often repeated its reasoning until it
+      hit the token limit before reaching an answer. These figures come from the original experiment’s published evaluation.</p>
+    <div class="stat">
+      <div class="bignum c-base">93.0<small>%</small></div>
+      <div class="stat-row"><span>Runs that hit the 32k-token limit</span></div>
+      <div class="bar"><i class="fill-base" style="width:93%"></i></div>
+    </div>
+  </article>
+
+  <article class="beat beat-edit">
+    <div class="beat-num">2</div>
+    <h2>The intervention: a small weight edit</h2>
+    <p>It subtracts one direction from 64 neurons' output weights (<code>ffn_down</code>) in
+      layers 15 and 19  -  131,072 of ~800M weights.</p>
+    <div class="scale" role="img" aria-label="24 layers; thin edited stripes in layers 15 and 19">
+      <div class="layers" id="layers"></div>
+      <div class="scale-axis"><span>layer 0</span><span>layer 23</span></div>
+      <p class="scale-note">Stripes drawn ~25× wider than true scale  -  at real size they would be invisible.</p>
+    </div>
+  </article>
+
+  <article class="beat beat-edited">
+    <div class="beat-num">3</div>
+    <h2>The result: fewer capped runs</h2>
+    <p>The original experiment reported fewer capped runs and higher MATH-500 accuracy.
+      Some runs still reached the token limit.</p>
+    <div class="stat">
+      <div class="score">
+        <span class="score-label">Hit the token limit</span>
+        <span class="score-nums"><b class="c-base was">93.0%</b><span class="arrow" aria-label="to">→</span><b class="c-edited now">33.1%</b></span>
+      </div>
+      <div class="bar dual"><i class="fill-base" style="width:93%"></i><i class="fill-edited" style="width:33.1%"></i></div>
+      <div class="score">
+        <span class="score-label">MATH-500 accuracy</span>
+        <span class="score-nums"><b class="c-base was">7.9%</b><span class="arrow" aria-label="to">→</span><b class="c-edited now">48.1%</b></span>
+      </div>
+      <div class="bar dual"><i class="fill-base" style="width:7.9%"></i><i class="fill-edited" style="width:48.1%"></i></div>
+    </div>
+  </article>
+
+  <article class="beat beat-context">
+    <h2>A familiar experimental loop</h2>
+    <p>Start with a few examples of unwanted behavior, propose an edit, and test whether it helps.
+      Then check other examples for regressions. People working with prompts or fine-tuning will
+      recognize the pattern. An AI agent makes this loop practical at the weight level: it can inspect
+      tensors, write editing code, run evaluations, and use the results to choose the next experiment.</p>
+  </article>
+</section>
+
+<section class="section" id="inside">
+  <div class="section-head">
+    <span class="kicker kicker-edit">Look closer</span>
+    <h2>Inside the edit</h2>
+    <p>Where the 131,072 changed weights sit, and what the edited neurons do while the model thinks.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h3>Weight diff <span class="badge" id="wd-badge">loading…</span></h3>
+      <p>Which of the 3,584 neurons feeding each edited <code>ffn_down</code> tensor were changed, and by how much.</p>
+    </div>
+    <p class="note" id="wd-note"></p>
+    <div id="wd-body"></div>
+  </div>
+
+  <div class="card nt-card" id="neurons">
+    <div class="card-head">
+      <h3>Key neurons during inference <span class="badge recording" id="nt-badge">loading…</span></h3>
+      <p>The 64 edited neurons of layers 15 and 19, token by token, on the recorded runs. Synced to the
+        replay above: hover to peek, drag to scrub.</p>
+    </div>
+
+    <ol class="nt-story" aria-label="What the trace shows">
+      <li class="nt-beat nt-beat-base"><b>Loops light them up</b>When the original model starts repeating
+        itself, these neurons fire harder: the push the edit adds is about <em>2-4× bigger</em> inside loops
+        than in the rest of the same run.</li>
+      <li class="nt-beat nt-beat-edit"><b>The edit pushes back</b>That push points <em>against</em> what the
+        neurons were writing, so the harder they fire, the harder the edit steers away from the loop.</li>
+      <li class="nt-beat nt-beat-cf"><b>Layer 19 calms down</b>Run the edited weights over the same looping
+        text (dashed line) and layer 19 is about <em>half as active</em> (≈ 2.1 compared with ≈ 4.0).</li>
+      <li class="nt-beat nt-beat-edited"><b>The loop gets wobbly</b>Its next tokens stop being a sure thing:
+        <em>15.9%</em> of loop tokens fall below 90% probability, against <em>0.4%</em> for the original.</li>
+    </ol>
+
+    <div class="nt-controls">
+      <div class="speeds" role="group" aria-label="Layer">
+        <button type="button" class="speed-btn" data-nt-layer="15" aria-pressed="false">L15</button>
+        <button type="button" class="speed-btn" data-nt-layer="19" aria-pressed="true">L19</button>
+      </div>
+      <span class="nt-case" id="nt-case"> - </span>
+      <span class="nt-top" id="nt-top">★ top push neuron:  - </span>
+    </div>
+
+    <div class="nt-readout" aria-live="off">
+      <p class="nt-token" id="nt-token">Waiting for the replay…</p>
+      <div class="nt-row" id="nt-row-base"><span class="nt-who c-base">base</span><span class="nt-tok"></span><span class="nt-val"></span></div>
+      <div class="nt-row" id="nt-row-edited"><span class="nt-who c-edited">edited</span><span class="nt-tok"></span><span class="nt-val"></span></div>
+      <div class="nt-row" id="nt-row-counterfactual"><span class="nt-who c-cf">edited weights · base text</span><span class="nt-tok"></span><span class="nt-val"></span></div>
+    </div>
+
+    <div class="nt-scrub" id="nt-scrub" role="slider" tabindex="0" aria-label="Replay position in tokens (neuron trace)" aria-valuemin="0">
+      <p class="nt-axis">how hard the edit pushes · |push| per token <span class="nt-same" id="nt-same" hidden>· L15: the dashed line equals base by construction (layers below 15 are unchanged)</span></p>
+      <canvas class="nt-chart" id="nt-chart"></canvas>
+      <div class="nt-heat-head">
+        <span class="nt-axis">neuron activity |a| · sorted by push share · colours scaled per case</span>
+        <div class="speeds speeds-sm" role="group" aria-label="Heatmap run">
+          <button type="button" class="speed-btn" data-nt-run="base" aria-pressed="true">base</button>
+          <button type="button" class="speed-btn" data-nt-run="edited" aria-pressed="false">edited</button>
+          <button type="button" class="speed-btn" data-nt-run="counterfactual" aria-pressed="false" title="edited weights reading the base run's text">edited · base text</button>
+        </div>
+      </div>
+      <canvas class="nt-heat" id="nt-heat"></canvas>
+    </div>
+
+    <div class="legend">
+      <span><i class="sw-base"></i>base</span>
+      <span><i class="sw-edited"></i>edited (its own run)</span>
+      <span><i class="sw-cf"></i>edited weights on base’s loop</span>
+      <span><i class="sw-loopband"></i>recorded loop</span>
+      <span><i class="sw-missed"></i>repeat the loop marker missed</span>
+    </div>
+    <p class="nt-caveat">n = 4 loops + 1 control · observational evidence · bf16 forward over the recorded tokens · int8-quantised for the web</p>
+    <p class="nt-foot">Footnote: the recorder marks only non-overlapping repeats, so a loop can start later than
+      the text actually repeats; your browser re-checks every repeat and hatches the missed part. “Push” is what
+      the edit <em>would</em> add given the base activations  -  its sign is a convention, so the chart shows its size.</p>
+  </div>
+</section>
+
+<section class="section" id="live">
+  <div class="section-head">
+    <span class="kicker">Try it</span>
+    <h2>Run it in your browser</h2>
+    <p>Both models run on your device via llama.cpp → WebAssembly + WebGPU. Your prompt stays on your device.</p>
+  </div>
+
+  <div class="card controls">
+    <label class="prompt-label" for="prompt">Prompt</label>
+    <input id="prompt" type="text" />
+    <div class="cta-row">
+      <button id="compare" class="primary">Download &amp; compare base vs edited</button>
+      <button id="stop" class="ghost" disabled>Stop</button>
+      <span class="size-note">⤓ <b>~1.05 GB</b> download (508 MB + 542 MB), cached in this browser after the first visit.</span>
+    </div>
+    <details class="advanced">
+      <summary>Advanced engine settings</summary>
+      <div class="adv-grid">
+        <label>max new tokens <input id="maxnt" type="number" value="4096" min="16" step="128" /></label>
+        <label>temperature <input id="temp" type="number" value="0.6" min="0" max="2" step="0.1" /></label>
+        <label>seed <input id="seed" type="number" value="0" min="0" /></label>
+        <label>n_ctx <input id="nctx" type="number" value="8192" min="512" step="512" /></label>
+        <label>n_gpu_layers <input id="ngpu" type="number" value="9999" min="0" /></label>
+        <label class="check"><input id="keep" type="checkbox" /> keep both models loaded</label>
+      </div>
+      <p class="adv-note">The edit was computed offline; this page runs inference with two prebuilt models.
+        Their different quantization calibration also affects the comparison, alongside the weight edit.
+        Sequential runs unload each model by default to limit GPU memory. n_ctx / n_gpu_layers
+        apply on the next load.</p>
+    </details>
+  </div>
+
+  <div class="grid">
+    <article class="pane card">
+      <div class="pane-head">
+        <span class="dot dot-base"></span>
+        <span class="name">Base</span>
+        <span class="src" title="unsloth/Qwen3.5-0.8B-GGUF · Q4_K_M with imatrix calibration">Q4_K_M · imatrix</span>
+        <span class="finish" id="finish-base">not loaded</span>
+        <button class="ghost mini" data-run="base">Run alone</button>
+      </div>
+      <div class="stream" id="scroll-base">
+        <div class="think" id="think-base" hidden></div>
+        <div class="answer muted" id="answer-base">Waiting for a run. Thinking text appears in grey, the final answer in dark ink.</div>
+      </div>
+      <div class="telemetry">
+        <canvas class="spark" id="spark-base"></canvas>
+        <div class="metrics" id="meta-base">not loaded</div>
+        <div class="loopwrap" title="Share of the last 80 words that repeat an earlier 4-word phrase">
+          <span class="looptag">repetition</span>
+          <canvas class="loop" id="loop-base"></canvas>
+          <span class="looplabel" id="looplabel-base">0%</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="pane card">
+      <div class="pane-head">
+        <span class="dot dot-edited"></span>
+        <span class="name">Edited</span>
+        <span class="src" title="NotCherry/Qwen3.5-0.8B-weight-space-programming-GGUF · plain Q4_K_M">Q4_K_M · plain</span>
+        <span class="finish" id="finish-edited">not loaded</span>
+        <button class="ghost mini" data-run="edited">Run alone</button>
+      </div>
+      <div class="stream" id="scroll-edited">
+        <div class="think" id="think-edited" hidden></div>
+        <div class="answer muted" id="answer-edited">Waiting for a run. Thinking text appears in grey, the final answer in dark ink.</div>
+      </div>
+      <div class="telemetry">
+        <canvas class="spark" id="spark-edited"></canvas>
+        <div class="metrics" id="meta-edited">not loaded</div>
+        <div class="loopwrap" title="Share of the last 80 words that repeat an earlier 4-word phrase">
+          <span class="looptag">repetition</span>
+          <canvas class="loop" id="loop-edited"></canvas>
+          <span class="looplabel" id="looplabel-edited">0%</span>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h3>Output streams</h3>
+      <p>How long each model talks, and how it ends: grey = thinking, colour = answer, ✓ = stopped on its own, ⚠ = hit the cap. x = stream chunk (≈ one token).</p>
+    </div>
+    <canvas class="timeline" id="timeline"></canvas>
+    <div class="legend">
+      <span><i class="sw-think"></i>thinking</span>
+      <span><i class="sw-base"></i>base answer</span>
+      <span><i class="sw-edited"></i>edited answer</span>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-row">
+    <span class="status" id="status">Loading…</span>
+    <span class="cache" id="cachelist">checking cache…</span>
+    <button id="clear" class="ghost mini">Clear download cache</button>
+  </div>
+  <p class="credits">
+    Based on <a href="https://rikiyat.github.io/blog/weight-space-programming/" target="_blank" rel="noopener">Sparks of Weight-Space Programming</a> (Exp 8).
+    Base model: <a href="https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF" target="_blank" rel="noopener">Qwen3.5-0.8B Q4_K_M (imatrix)</a> ·
+    edited: <a href="https://huggingface.co/NotCherry/Qwen3.5-0.8B-weight-space-programming-GGUF" target="_blank" rel="noopener">Qwen3.5-0.8B weight-space-programmed Q4_K_M</a>.
+    Built by the <a href="https://tabbyml.com" target="_blank" rel="noopener">TabbyML team</a>.
+  </p>
+</footer>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

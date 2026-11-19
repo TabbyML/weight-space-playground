@@ -1,0 +1,2084 @@
+{
+ "source": {
+  "engine": "llama.cpp llama-server (native)",
+  "llamaCpp": {
+   "commit": "7d7f0287530bc8981690f361d8c1627dbae1c99a",
+   "version": "version: 0.9.0-dev (build 12211, commit 7d7f02875)"
+  },
+  "host": "AMD EPYC 7532 32-Core Processor; 4x NVIDIA RTX 4090 for Vulkan runs",
+  "gguf": {
+   "base": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q4_K_M.gguf",
+   "edited": "https://huggingface.co/NotCherry/Qwen3.5-0.8B-weight-space-programming-GGUF/resolve/aded4c8fa22992e397cdad51a42299abf463ba52/Qwen3.5-0.8B-Weight-Space-Programming-Q4_K_M.gguf"
+  },
+  "samplingNote": "samplers not listed are at llama-server defaults (repeat_penalty 1.0, no DRY/XTC)",
+  "seed": 0,
+  "chatTemplate": "GGUF chat template via llama-server /apply-template, enable_thinking=true",
+  "caveat": "Native llama.cpp recording: a WebGPU (wllama) run with the same seed will diverge token-for-token. Base and edited GGUFs are not a matched quant pair (unsloth imatrix Q4_K_M vs plain Q4_K_M)."
+ },
+ "replaySetting": "cap16k",
+ "replayCases": [
+  {
+   "setting": "cap16k",
+   "id": "math500-algebra-2551",
+   "kind": "loop"
+  },
+  {
+   "setting": "cap16k",
+   "id": "math500-number_theory-914",
+   "kind": "loop"
+  },
+  {
+   "setting": "cap16k",
+   "id": "math500-algebra-346",
+   "kind": "loop"
+  },
+  {
+   "setting": "cap16k",
+   "id": "math500-algebra-24",
+   "kind": "loop"
+  },
+  {
+   "setting": "up16k_pp",
+   "id": "math500-prealgebra-192",
+   "kind": "control"
+  }
+ ],
+ "settings": {
+  "page4096": {
+   "backend": "CPU (local build of b12211, 1 sequence/server, 4 threads)",
+   "sampling": {
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0.0,
+    "max_tokens": 4096
+   },
+   "nCtx": 8192,
+   "seed": 0,
+   "batchStats": {
+    "n": 31,
+    "base_cap_rate": 1.0,
+    "edited_cap_rate": 1.0,
+    "base_acc": 0.0,
+    "edited_acc": 0.0
+   },
+   "selection": {
+    "loop": [],
+    "control": null
+   },
+   "rows": [
+    {
+     "id": "default",
+     "level": null,
+     "reference": "1048",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 1044
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-2551",
+     "level": 1,
+     "reference": "10",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 1945
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-24",
+     "level": 1,
+     "reference": "2000",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-722",
+     "level": 1,
+     "reference": "9901",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 2660
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-752",
+     "level": 1,
+     "reference": "3",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-567",
+     "level": 1,
+     "reference": "1",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-counting_and_probability-761",
+     "level": 1,
+     "reference": "3",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-2592",
+     "level": 1,
+     "reference": "26000",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 713
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-prealgebra-192",
+     "level": 1,
+     "reference": "2",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-914",
+     "level": 2,
+     "reference": "9",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-geometry-456",
+     "level": 2,
+     "reference": "3",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 403
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-991",
+     "level": 2,
+     "reference": "3",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-346",
+     "level": 2,
+     "reference": "7",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 2466
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-1787",
+     "level": 2,
+     "reference": "8",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 2533
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-2046",
+     "level": 2,
+     "reference": "2",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 2791
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-prealgebra-1252",
+     "level": 2,
+     "reference": "200",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 2544
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 59
+     }
+    },
+    {
+     "id": "math500-prealgebra-65",
+     "level": 2,
+     "reference": "6",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-572",
+     "level": 3,
+     "reference": "9",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 179
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-894",
+     "level": 3,
+     "reference": "2",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-1553",
+     "level": 3,
+     "reference": "3",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 1369
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-691",
+     "level": 3,
+     "reference": "255",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 3240
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-prealgebra-1908",
+     "level": 3,
+     "reference": "3",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 608
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-1032",
+     "level": 3,
+     "reference": "2220",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 964
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-515",
+     "level": 3,
+     "reference": "27",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-1287",
+     "level": 4,
+     "reference": "8",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 133
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-prealgebra-2037",
+     "level": 4,
+     "reference": "550",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 1233
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-149",
+     "level": 4,
+     "reference": "66",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 3023
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-prealgebra-993",
+     "level": 4,
+     "reference": "1250",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 1144
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-966",
+     "level": 5,
+     "reference": "16",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 3132
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-117",
+     "level": 5,
+     "reference": "15",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-297",
+     "level": 5,
+     "reference": "1736",
+     "base": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 1266
+     },
+     "edited": {
+      "n_tokens": 4096,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    }
+   ]
+  },
+  "up16k_pp": {
+   "backend": "Vulkan, RTX 4090 (official b12211 ubuntu-vulkan-x64 release, 4 parallel slots/server)",
+   "sampling": {
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 1.5,
+    "max_tokens": 16384
+   },
+   "nCtx": 20480,
+   "seed": 0,
+   "batchStats": {
+    "n": 31,
+    "base_cap_rate": 0.9032,
+    "edited_cap_rate": 0.8065,
+    "base_acc": 0.0968,
+    "edited_acc": 0.129
+   },
+   "selection": {
+    "loop": [
+     "math500-algebra-24",
+     "math500-algebra-722"
+    ],
+    "control": "math500-prealgebra-192"
+   },
+   "rows": [
+    {
+     "id": "default",
+     "level": null,
+     "reference": "1048",
+     "base": {
+      "n_tokens": 12513,
+      "finish": "stop",
+      "thinkEnd": 11820,
+      "answer": "1048",
+      "correct": true,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-2551",
+     "level": 1,
+     "reference": "10",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 10714
+     },
+     "edited": {
+      "n_tokens": 9516,
+      "finish": "stop",
+      "thinkEnd": 9052,
+      "answer": "6",
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-24",
+     "level": 1,
+     "reference": "2000",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 7633
+     },
+     "edited": {
+      "n_tokens": 870,
+      "finish": "stop",
+      "thinkEnd": 687,
+      "answer": "2000",
+      "correct": true,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-722",
+     "level": 1,
+     "reference": "9901",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 7917
+     },
+     "edited": {
+      "n_tokens": 15813,
+      "finish": "stop",
+      "thinkEnd": 15403,
+      "answer": "9901",
+      "correct": true,
+      "loopTokens": 1054
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-752",
+     "level": 1,
+     "reference": "3",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 7719
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-567",
+     "level": 1,
+     "reference": "1",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 3366
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-counting_and_probability-761",
+     "level": 1,
+     "reference": "3",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 9126
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-2592",
+     "level": 1,
+     "reference": "26000",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 11425
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": 15856,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-prealgebra-192",
+     "level": 1,
+     "reference": "2",
+     "base": {
+      "n_tokens": 4584,
+      "finish": "stop",
+      "thinkEnd": 4183,
+      "answer": "2",
+      "correct": true,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 1718,
+      "finish": "stop",
+      "thinkEnd": 1393,
+      "answer": "2",
+      "correct": true,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-914",
+     "level": 2,
+     "reference": "9",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 12525
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-geometry-456",
+     "level": 2,
+     "reference": "3",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 6487
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": 16289,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-991",
+     "level": 2,
+     "reference": "3",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-346",
+     "level": 2,
+     "reference": "7",
+     "base": {
+      "n_tokens": 7334,
+      "finish": "stop",
+      "thinkEnd": 7030,
+      "answer": "7",
+      "correct": true,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 3522,
+      "finish": "stop",
+      "thinkEnd": 3225,
+      "answer": "7",
+      "correct": true,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-1787",
+     "level": 2,
+     "reference": "8",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 12966
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-2046",
+     "level": 2,
+     "reference": "2",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-prealgebra-1252",
+     "level": 2,
+     "reference": "200",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 7799
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-prealgebra-65",
+     "level": 2,
+     "reference": "6",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 283
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-572",
+     "level": 3,
+     "reference": "9",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 1305
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-894",
+     "level": 3,
+     "reference": "2",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 11582
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-1553",
+     "level": 3,
+     "reference": "3",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 9167
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-691",
+     "level": 3,
+     "reference": "255",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 9597
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-prealgebra-1908",
+     "level": 3,
+     "reference": "3",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-1032",
+     "level": 3,
+     "reference": "2220",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 7870
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-515",
+     "level": 3,
+     "reference": "27",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 5233
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-1287",
+     "level": 4,
+     "reference": "8",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 6442
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-prealgebra-2037",
+     "level": 4,
+     "reference": "550",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 10499
+     },
+     "edited": {
+      "n_tokens": 9050,
+      "finish": "stop",
+      "thinkEnd": 8686,
+      "answer": "396,000",
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-149",
+     "level": 4,
+     "reference": "66",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 11252
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-prealgebra-993",
+     "level": 4,
+     "reference": "1250",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 12294
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 1207
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-966",
+     "level": 5,
+     "reference": "16",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 6698
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-117",
+     "level": 5,
+     "reference": "15",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 6919
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-297",
+     "level": 5,
+     "reference": "1736",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    }
+   ]
+  },
+  "cap16k": {
+   "backend": "Vulkan, RTX 4090 (official b12211 ubuntu-vulkan-x64 release, 4 parallel slots/server)",
+   "sampling": {
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0.0,
+    "max_tokens": 16384
+   },
+   "nCtx": 20480,
+   "seed": 0,
+   "batchStats": {
+    "n": 31,
+    "base_cap_rate": 1.0,
+    "edited_cap_rate": 0.5484,
+    "base_acc": 0.0,
+    "edited_acc": 0.3226
+   },
+   "selection": {
+    "loop": [
+     "math500-algebra-2551",
+     "math500-number_theory-914",
+     "math500-algebra-346",
+     "math500-algebra-24"
+    ],
+    "control": null
+   },
+   "rows": [
+    {
+     "id": "default",
+     "level": null,
+     "reference": "1048",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 12982
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 6537
+     }
+    },
+    {
+     "id": "math500-algebra-2551",
+     "level": 1,
+     "reference": "10",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 11651
+     },
+     "edited": {
+      "n_tokens": 7182,
+      "finish": "stop",
+      "thinkEnd": 4541,
+      "answer": "10",
+      "correct": true,
+      "loopTokens": 295
+     }
+    },
+    {
+     "id": "math500-algebra-24",
+     "level": 1,
+     "reference": "2000",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 11749
+     },
+     "edited": {
+      "n_tokens": 7770,
+      "finish": "stop",
+      "thinkEnd": 7453,
+      "answer": "2000",
+      "correct": true,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-722",
+     "level": 1,
+     "reference": "9901",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 11831
+     },
+     "edited": {
+      "n_tokens": 10741,
+      "finish": "stop",
+      "thinkEnd": 7102,
+      "answer": "9901",
+      "correct": true,
+      "loopTokens": 695
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-752",
+     "level": 1,
+     "reference": "3",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 10194
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": 7239,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 544
+     }
+    },
+    {
+     "id": "math500-algebra-567",
+     "level": 1,
+     "reference": "1",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 8368
+     },
+     "edited": {
+      "n_tokens": 11534,
+      "finish": "stop",
+      "thinkEnd": 10907,
+      "answer": "1",
+      "correct": true,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-counting_and_probability-761",
+     "level": 1,
+     "reference": "3",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 13809
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": 12550,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-2592",
+     "level": 1,
+     "reference": "26000",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 14116
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 6621
+     }
+    },
+    {
+     "id": "math500-prealgebra-192",
+     "level": 1,
+     "reference": "2",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 12186
+     },
+     "edited": {
+      "n_tokens": 10440,
+      "finish": "stop",
+      "thinkEnd": 9925,
+      "answer": "2",
+      "correct": true,
+      "loopTokens": 784
+     }
+    },
+    {
+     "id": "math500-number_theory-914",
+     "level": 2,
+     "reference": "9",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 12470
+     },
+     "edited": {
+      "n_tokens": 7409,
+      "finish": "stop",
+      "thinkEnd": 6641,
+      "answer": "9",
+      "correct": true,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-geometry-456",
+     "level": 2,
+     "reference": "3",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 10921
+     },
+     "edited": {
+      "n_tokens": 9141,
+      "finish": "stop",
+      "thinkEnd": 8082,
+      "answer": "3",
+      "correct": true,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-991",
+     "level": 2,
+     "reference": "3",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 9689
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 360
+     }
+    },
+    {
+     "id": "math500-algebra-346",
+     "level": 2,
+     "reference": "7",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 5362
+     },
+     "edited": {
+      "n_tokens": 7537,
+      "finish": "stop",
+      "thinkEnd": 7265,
+      "answer": "7",
+      "correct": true,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-algebra-1787",
+     "level": 2,
+     "reference": "8",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 13454
+     },
+     "edited": {
+      "n_tokens": 4895,
+      "finish": "stop",
+      "thinkEnd": 4759,
+      "answer": "12",
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-2046",
+     "level": 2,
+     "reference": "2",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 9111
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": 10510,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 3809
+     }
+    },
+    {
+     "id": "math500-prealgebra-1252",
+     "level": 2,
+     "reference": "200",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 14049
+     },
+     "edited": {
+      "n_tokens": 8578,
+      "finish": "stop",
+      "thinkEnd": 8125,
+      "answer": "900",
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-prealgebra-65",
+     "level": 2,
+     "reference": "6",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 13620
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": 9246,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 688
+     }
+    },
+    {
+     "id": "math500-number_theory-572",
+     "level": 3,
+     "reference": "9",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 7104,
+      "finish": "stop",
+      "thinkEnd": 6459,
+      "answer": "9",
+      "correct": true,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-894",
+     "level": 3,
+     "reference": "2",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 12294
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 4872
+     }
+    },
+    {
+     "id": "math500-algebra-1553",
+     "level": 3,
+     "reference": "3",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 14667
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-691",
+     "level": 3,
+     "reference": "255",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 13322
+     },
+     "edited": {
+      "n_tokens": 10244,
+      "finish": "stop",
+      "thinkEnd": 9877,
+      "answer": "255",
+      "correct": true,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-prealgebra-1908",
+     "level": 3,
+     "reference": "3",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 8800
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": 15831,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-1032",
+     "level": 3,
+     "reference": "2220",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 14863
+     },
+     "edited": {
+      "n_tokens": 14685,
+      "finish": "stop",
+      "thinkEnd": 10360,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 2293
+     }
+    },
+    {
+     "id": "math500-number_theory-515",
+     "level": 3,
+     "reference": "27",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": 12600,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 2779
+     }
+    },
+    {
+     "id": "math500-number_theory-1287",
+     "level": 4,
+     "reference": "8",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 13750
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": 8605,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 7104
+     }
+    },
+    {
+     "id": "math500-prealgebra-2037",
+     "level": 4,
+     "reference": "550",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 12559
+     },
+     "edited": {
+      "n_tokens": 5283,
+      "finish": "stop",
+      "thinkEnd": 4854,
+      "answer": "396000",
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-number_theory-149",
+     "level": 4,
+     "reference": "66",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 12110
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": 9675,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-prealgebra-993",
+     "level": 4,
+     "reference": "1250",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 14273
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": 9416,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 0
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-966",
+     "level": 5,
+     "reference": "16",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 11441
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": 11699,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 5214
+     }
+    },
+    {
+     "id": "math500-intermediate_algebra-117",
+     "level": 5,
+     "reference": "15",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 12811
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 167
+     }
+    },
+    {
+     "id": "math500-algebra-297",
+     "level": 5,
+     "reference": "1736",
+     "base": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 11647
+     },
+     "edited": {
+      "n_tokens": 16384,
+      "finish": "length",
+      "thinkEnd": null,
+      "answer": null,
+      "correct": false,
+      "loopTokens": 2258
+     }
+    }
+   ]
+  }
+ }
+}
